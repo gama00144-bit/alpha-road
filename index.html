@@ -5,123 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: Arial, sans-serif;
+  font-family:'Poppins', sans-serif;
 }
 
-body {
-  background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') no-repeat center center/cover;
-  height: 100vh;
-  color: white;
+body{
+  background: linear-gradient(-45deg,#0f0f0f,#1a1a1a,#000000,#111111);
+  background-size:400% 400%;
+  animation:gradient 10s ease infinite;
+  color:white;
 }
 
-.overlay {
-  background: rgba(0,0,0,0.75);
-  height: 100%;
-  padding: 20px;
+@keyframes gradient{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-header {
-  text-align: center;
-  padding-top: 40px;
+header{
+  text-align:center;
+  padding:40px 20px;
 }
 
-header h1 {
-  font-size: 32px;
-  color: #FFD700;
+header h1{
+  font-size:34px;
+  color:#FFD700;
 }
 
-header p {
-  margin-top: 10px;
-  font-size: 18px;
+header p{
+  margin-top:10px;
+  font-weight:300;
+  opacity:0.8;
 }
 
-.services {
-  margin-top: 60px;
-  text-align: center;
+.services{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  padding:30px;
 }
 
-.service-btn {
-  display: block;
-  margin: 15px auto;
-  padding: 15px;
-  width: 85%;
-  max-width: 400px;
-  background: linear-gradient(45deg, #FFD700, #ffb700);
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+.service-card{
+  width:90%;
+  max-width:400px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,215,0,0.2);
+  text-align:center;
+  transition:0.3s;
+  cursor:pointer;
 }
 
-.service-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #FFD700;
+.service-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 20px rgba(255,215,0,0.4);
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
+.service-card h3{
+  color:#FFD700;
+  margin-bottom:10px;
 }
 
-.modal-content {
-  background: #222;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
 }
 
-input {
-  width: 95%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: none;
+.modal-content{
+  background:#1a1a1a;
+  padding:25px;
+  border-radius:15px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  animation:fadeIn 0.3s ease;
 }
 
-footer {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 14px;
-  opacity: 0.7;
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#FFD700;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.call-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  padding:15px;
+  border-radius:50%;
+  font-size:20px;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
+  text-decoration:none;
+}
+
+.map-section{
+  padding:40px 20px;
+  text-align:center;
+}
+
+.map-section h2{
+  color:#FFD700;
+  margin-bottom:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay">
-
 <header>
   <h1>🚗 Alpha Road Assistance</h1>
-  <p>24/7 Emergency Automotive Support</p>
+  <p>Fast • Reliable • 24/7 Emergency Support</p>
 </header>
 
 <div class="services">
-  <button class="service-btn" onclick="openForm('Car Towing')">🚘 Car Towing</button>
-  <button class="service-btn" onclick="openForm('Battery Jump Start')">🔋 Battery Jump Start</button>
-  <button class="service-btn" onclick="openForm('Flat Tyre Support')">🛞 Flat Tyre Support</button>
+  <div class="service-card" onclick="openForm('Car Towing')">
+    <h3>🚘 Car Towing</h3>
+    <p>Quick and safe vehicle towing anytime.</p>
+  </div>
+
+  <div class="service-card" onclick="openForm('Battery Jump Start')">
+    <h3>🔋 Battery Jump Start</h3>
+    <p>Instant battery support at your location.</p>
+  </div>
+
+  <div class="service-card" onclick="openForm('Flat Tyre Support')">
+    <h3>🛞 Flat Tyre Support</h3>
+    <p>Emergency tyre replacement service.</p>
+  </div>
 </div>
 
-<footer>
-  📞 Emergency Contact: 7510664387
-</footer>
+<!-- Google Map Section -->
+<section class="map-section">
+  <h2>📍 Our Location</h2>
 
-</div>
+  <div style="border-radius:20px; overflow:hidden; max-width:900px; margin:auto;">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.039898110678!2d76.936637!3d8.524139"
+      width="100%" 
+      height="300" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<a href="tel:7510664387" class="call-btn">📞</a>
 
 <!-- Booking Modal -->
 <div class="modal" id="bookingModal">
@@ -130,41 +193,41 @@ footer {
     <input type="text" id="name" placeholder="Your Name">
     <input type="number" id="phone" placeholder="Phone Number">
     <input type="text" id="service" readonly>
-    <button class="service-btn" onclick="submitForm()">Submit Booking</button>
+    <button onclick="submitForm()">Submit Booking</button>
     <button onclick="closeForm()">Cancel</button>
   </div>
 </div>
 
 <script>
-function openForm(serviceName) {
-  document.getElementById("service").value = serviceName;
-  document.getElementById("bookingModal").style.display = "flex";
+function openForm(serviceName){
+  document.getElementById("service").value=serviceName;
+  document.getElementById("bookingModal").style.display="flex";
 }
 
-function closeForm() {
-  document.getElementById("bookingModal").style.display = "none";
+function closeForm(){
+  document.getElementById("bookingModal").style.display="none";
 }
 
-function submitForm() {
-  var name = document.getElementById("name").value;
-  var phone = document.getElementById("phone").value;
-  var service = document.getElementById("service").value;
+function submitForm(){
+  var name=document.getElementById("name").value;
+  var phone=document.getElementById("phone").value;
+  var service=document.getElementById("service").value;
 
-  if(name === "" || phone === "") {
+  if(name===""||phone===""){
     alert("Please fill all details!");
     return;
   }
 
-  var bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  var bookings=JSON.parse(localStorage.getItem("bookings"))||[];
 
   bookings.push({
-    name: name,
-    phone: phone,
-    service: service,
-    status: "Pending"
+    name:name,
+    phone:phone,
+    service:service,
+    status:"Pending"
   });
 
-  localStorage.setItem("bookings", JSON.stringify(bookings));
+  localStorage.setItem("bookings",JSON.stringify(bookings));
 
   closeForm();
   alert("✅ Booking Submitted Successfully!");

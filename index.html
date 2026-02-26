@@ -5,39 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
 body {
-  margin: 0;
-  font-family: Arial;
-  background: #111;
+  background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') no-repeat center center/cover;
+  height: 100vh;
   color: white;
-  text-align: center;
+}
+
+.overlay {
+  background: rgba(0,0,0,0.75);
+  height: 100%;
+  padding: 20px;
 }
 
 header {
-  background: #000;
-  padding: 20px;
+  text-align: center;
+  padding-top: 40px;
 }
 
 header h1 {
+  font-size: 32px;
   color: #FFD700;
-  margin: 0;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 18px;
 }
 
 .services {
-  padding: 20px;
+  margin-top: 60px;
+  text-align: center;
 }
 
 .service-btn {
   display: block;
-  margin: 10px auto;
+  margin: 15px auto;
   padding: 15px;
-  width: 80%;
-  background: #FFD700;
+  width: 85%;
+  max-width: 400px;
+  background: linear-gradient(45deg, #FFD700, #ffb700);
   border: none;
-  border-radius: 8px;
+  border-radius: 30px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.service-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #FFD700;
 }
 
 .modal {
@@ -55,31 +79,48 @@ header h1 {
 .modal-content {
   background: #222;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 90%;
+  max-width: 400px;
+  text-align: center;
 }
 
-input, select {
+input {
   width: 95%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 6px;
   border: none;
 }
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 14px;
+  opacity: 0.7;
+}
 </style>
 </head>
 
 <body>
 
+<div class="overlay">
+
 <header>
   <h1>🚗 Alpha Road Assistance</h1>
-  <p>Emergency Automotive Services</p>
+  <p>24/7 Emergency Automotive Support</p>
 </header>
 
 <div class="services">
-  <button class="service-btn" onclick="openForm('Car Towing')">Car Towing</button>
-  <button class="service-btn" onclick="openForm('Battery Jump Start')">Battery Jump Start</button>
-  <button class="service-btn" onclick="openForm('Flat Tyre Support')">Flat Tyre Support</button>
+  <button class="service-btn" onclick="openForm('Car Towing')">🚘 Car Towing</button>
+  <button class="service-btn" onclick="openForm('Battery Jump Start')">🔋 Battery Jump Start</button>
+  <button class="service-btn" onclick="openForm('Flat Tyre Support')">🛞 Flat Tyre Support</button>
+</div>
+
+<footer>
+  📞 Emergency Contact: 7510664387
+</footer>
+
 </div>
 
 <!-- Booking Modal -->
@@ -105,7 +146,6 @@ function closeForm() {
 }
 
 function submitForm() {
-
   var name = document.getElementById("name").value;
   var phone = document.getElementById("phone").value;
   var service = document.getElementById("service").value;

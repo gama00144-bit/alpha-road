@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alpha Admin Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f0f0f;
+  color: white;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: #1c1c1c;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  background: #FFD700;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dashboard {
+  display: none;
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 150px;
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  text-align: center;
+}
+
+th {
+  background: #FFD700;
+  color: black;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-container" id="loginPage">
+  <div class="login-box">
+    <h2>🔐 Admin Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="error" style="color:red;"></p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboardPage">
+
+  <h2 style="color:#FFD700;">🚗 Alpha Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+
+  <div class="cards">
+    <div class="card">
+      <h3 id="totalCount">0</h3>
+      <p>Total Bookings</p>
+    </div>
+    <div class="card">
+      <h3 id="pendingCount">0</h3>
+      <p>Pending</p>
+    </div>
+    <div class="card">
+      <h3 id="completedCount">0</h3>
+      <p>Completed</p>
+    </div>
+  </div>
+
+  <table id="bookingTable"></table>
+
+</div>
+
+<script>
+function login() {
+  var user = document.getElementById("username").value;
+  var pass = document.getElementById("password").value;
+
+  if(user === "admin" && pass === "1234") {
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("dashboardPage").style.display = "block";
+    loadBookings();
+  } else {
+    document.getElementById("error").innerText = "Invalid Username or Password!";
+  }
+}
+
+function logout() {
+  document.getElementById("dashboardPage").style.display = "none";
+  document.getElementById("loginPage").style.display = "flex";
+}
+
+function loadBookings() {
+  var bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  document.getElementById("totalCount").innerText = bookings.length;
+
+  var pending = bookings.filter(b => b.status === "Pending").length;
+  var completed = bookings.filter(b => b.status === "Completed").length;
+
+  document.getElementById("pendingCount").innerText = pending;
+  document.getElementById("completedCount").innerText = completed;
+
+  var table = document.getElementById("bookingTable");
+
+  table.innerHTML = `
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Service</th>
+      <th>Status</th>
+    </tr>
+  `;
+
+  bookings.forEach(function(b, index){
+    table.innerHTML += `
+      <tr>
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.service}</td>
+        <td>${b.status}</td>
+      </tr>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>

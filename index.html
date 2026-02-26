@@ -3,139 +3,134 @@
 <head>
 <title>Alpha Road Assistance</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
 
+<style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
+  background: #111;
   color: white;
   text-align: center;
-  background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.overlay {
-  background: rgba(0,0,0,0.85);
-  min-height: 100vh;
-  padding-bottom: 40px;
 }
 
 header {
-  padding: 40px 20px;
+  background: #000;
+  padding: 20px;
 }
 
 header h1 {
   color: #FFD700;
-  font-size: 34px;
   margin: 0;
 }
 
-header p {
-  color: #ccc;
+.services {
+  padding: 20px;
 }
 
-.call-btn {
+.service-btn {
   display: block;
+  margin: 10px auto;
+  padding: 15px;
+  width: 80%;
   background: #FFD700;
-  color: black;
-  padding: 18px;
-  font-size: 20px;
-  text-decoration: none;
-  margin: 20px auto;
-  width: 85%;
-  border-radius: 50px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.section {
-  padding: 25px;
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
 }
 
-.section h2 {
-  color: #FFD700;
-}
-
-.service-box {
-  background: rgba(255,255,255,0.08);
-  margin: 12px auto;
-  padding: 18px;
-  border-radius: 12px;
-  width: 85%;
-  backdrop-filter: blur(5px);
-}
-
-iframe {
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
   width: 90%;
-  height: 250px;
-  border-radius: 12px;
-  margin-top: 15px;
+}
+
+input, select {
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
   border: none;
 }
-
-.footer {
-  padding: 20px;
-  font-size: 14px;
-  color: #aaa;
-}
-
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  color: white;
-  padding: 16px;
-  border-radius: 50%;
-  font-size: 22px;
-  text-decoration: none;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="overlay">
-
 <header>
-  <h1>🚗 ALPHA</h1>
-  <p>24x7 Automotive Road Assistance</p>
+  <h1>🚗 Alpha Road Assistance</h1>
+  <p>Emergency Automotive Services</p>
 </header>
 
-<a href="tel:7510664387" class="call-btn">
-📞 CALL NOW - 7510664387
-</a>
-
-<div class="section">
-  <h2>Our Services</h2>
-
-  <div class="service-box">🚙 Car Towing Service</div>
-  <div class="service-box">🔋 Battery Jump Start</div>
-  <div class="service-box">🛞 Tyre Replacement</div>
-  <div class="service-box">⛽ Emergency Fuel Delivery</div>
-  <div class="service-box">🔧 Minor Roadside Repairs</div>
+<div class="services">
+  <button class="service-btn" onclick="openForm('Car Towing')">Car Towing</button>
+  <button class="service-btn" onclick="openForm('Battery Jump Start')">Battery Jump Start</button>
+  <button class="service-btn" onclick="openForm('Flat Tyre Support')">Flat Tyre Support</button>
 </div>
 
-<div class="section">
-  <h2>Service Area</h2>
-  <p>Thiruvananthapuram & Nearby Areas</p>
-
-  <!-- Google Map -->
-  <iframe 
-    src="https://www.google.com/maps?q=Thiruvananthapuram&output=embed">
-  </iframe>
-
+<!-- Booking Modal -->
+<div class="modal" id="bookingModal">
+  <div class="modal-content">
+    <h3>Book Service</h3>
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="number" id="phone" placeholder="Phone Number">
+    <input type="text" id="service" readonly>
+    <button class="service-btn" onclick="submitForm()">Submit Booking</button>
+    <button onclick="closeForm()">Cancel</button>
+  </div>
 </div>
 
-<div class="footer">
-  © 2026 Alpha Road Assistance | Phone: 7510664387
-</div>
+<script>
+function openForm(serviceName) {
+  document.getElementById("service").value = serviceName;
+  document.getElementById("bookingModal").style.display = "flex";
+}
 
-</div>
+function closeForm() {
+  document.getElementById("bookingModal").style.display = "none";
+}
 
-<a href="https://wa.me/917510664387" class="whatsapp">
-💬
-</a>
+function submitForm() {
+
+  var name = document.getElementById("name").value;
+  var phone = document.getElementById("phone").value;
+  var service = document.getElementById("service").value;
+
+  if(name === "" || phone === "") {
+    alert("Please fill all details!");
+    return;
+  }
+
+  var bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  bookings.push({
+    name: name,
+    phone: phone,
+    service: service,
+    status: "Pending"
+  });
+
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+
+  closeForm();
+  alert("✅ Booking Submitted Successfully!");
+  location.reload();
+}
+</script>
 
 </body>
 </html>
